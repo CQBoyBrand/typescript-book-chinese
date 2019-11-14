@@ -9,7 +9,7 @@
 
 ## 动机和示例
 
-考虑如下简单的 `Queue` （先进先出）数据结构实现，一个在 `TypeScript` 和 `JavaScript` 中的简单实现：
+下面是对一个先进先出的数据结构——队列，在 `TypeScript` 和 `JavaScript` 中的简单实现。
 
 ```ts
 class Queue {
@@ -19,7 +19,7 @@ class Queue {
 }
 ```
 
-在上述代码中存在一个问题，它允许你推入任何类型至队列中，推出的时候也是任意类型，如下所示，但一个人推入一个 `string` 类型至队列中，但是使用者可能会认为队列里只有 `number` 类型：
+在上述代码中存在一个问题，它允许你向队列中添加任何类型的数据，当然，当数据被弹出队列时，也可以是任意类型。在下面的示例中，看起来人们可以向队列中添加`string` 类型的数据，但是实际上，该用法假定的是只有 `number` 类型会被添加到队列里。
 
 ```ts
 class Queue {
@@ -44,7 +44,7 @@ console.log(queue.pop().toPrecision(1)); // RUNTIME ERROR
 class QueueNumber {
   private data = [];
   push = (item: number) => this.data.push(item);
-  pop = (): number => this.data.shift;
+  pop = (): number => this.data.shift();
 }
 
 const queue = new QueueNumber();
@@ -55,12 +55,12 @@ queue.push('1'); // Error: 不能推入一个 `string` 类型，只能是 `numbe
 // 如果该错误得到修复，其他将不会出现问题
 ```
 
-当然，快速意为着痛苦的。例如但你想创建一个字符串的队列时，你将不得不再次修改相当大的代码。我们真正想要的一种方式是无论什么类型被推入队列，被推出的类型都与推入类型一样。当你使用泛型时，这会很容易：
+当然，快速也意味着痛苦。例如当你想创建一个字符串的队列时，你将不得不再次修改相当大的代码。我们真正想要的一种方式是无论什么类型被推入队列，被推出的类型都与推入类型一样。当你使用泛型时，这会很容易：
 
 ```ts
 // 创建一个泛型类
 class Queue<T> {
-  private data :T[] = [];
+  private data: T[] = [];
   push = (item: T) => this.data.push(item);
   pop = (): T | undefined => this.data.shift();
 }
@@ -83,7 +83,7 @@ function reverse<T>(items: T[]): T[] {
 }
 
 const sample = [1, 2, 3];
-const reversed = reverse(sample);
+let reversed = reverse(sample);
 
 reversed[0] = '1'; // Error
 reversed = ['1', '2']; // Error
@@ -107,7 +107,7 @@ class Utility {
 ```
 
 ::: tip
-你可以随意调用泛型参数，当你使用简单的泛型时，泛型常用 `T`、`U`、`V` 表示。如果在你的参数里，不止拥有一个泛型，你应该使用一个更语义化名称，如 `TKey` 和 `TValue` （通常情况下，以 `T` 做为泛型前缀也在如 C++ 的其他语言里做为模版。）
+你可以随意调用泛型参数，当你使用简单的泛型时，泛型常用 `T`、`U`、`V` 表示。如果在你的参数里，不止拥有一个泛型，你应该使用一个更语义化名称，如 `TKey` 和 `TValue` （通常情况下，以 `T` 作为泛型的前缀，在其他语言如 C++ 里，也被称为模板）
 :::
 
 ## 误用的泛型

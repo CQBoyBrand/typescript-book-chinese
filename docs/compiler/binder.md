@@ -76,7 +76,7 @@ function createSymbol(flags: SymbolFlags, name: string): Symbol {
 
 节点和符号间的链接由几个函数执行。其中一个用于绑定 `SourceFile` 节点到源文件符号（外部模块的情况下）的函数是 `addDeclarationToSymbol`
 
-注意：外部模块源文件的符号设置为 `flags : SymbolFlags.ValueModule` 和 `name: '"' + removeFileExtension(file.fileName) + '"'`.
+注意：外部模块源文件的符号设置方式是 `flags : SymbolFlags.ValueModule` 和 `name: '"' + removeFileExtension(file.fileName) + '"'`.
 
 ```ts
 function addDeclarationToSymbol(symbol: Symbol, node: Declaration, symbolFlags: SymbolFlags) {
@@ -105,7 +105,7 @@ function addDeclarationToSymbol(symbol: Symbol, node: Declaration, symbolFlags: 
 }
 ```
 
-重要的部分（译注：相关注释已添加到上面的代码中）：
+上述代码主要执行的操作如下：
 
 - 创建一个从 AST 节点到符号的链接（`node.symbol`）
 - 将节点添加为该符号的*一个*声明
@@ -123,7 +123,7 @@ interface Declaration extends Node {
 
 ## 绑定器容器
 
-AST 的节点可以作容器。这决定了的节点及相关符号的 `SymbolTables` 的类别。容器是个抽象概念（没有相关的数据结构）。该概念由一些东西决定，`ContainerFlags` 枚举是其中之一。函数 `getContainerFlags`（位于 `binder.ts`） 驱动此标志，如下所示：
+AST 的节点可以被当作容器。这决定了节点及相关符号的 `SymbolTables` 的类别。容器是个抽象概念（没有相关的数据结构）。该概念由一些东西决定，`ContainerFlags` 枚举是其中之一。函数 `getContainerFlags`（位于 `binder.ts`） 驱动此标志，如下所示：
 
 ```ts
 function getContainerFlags(node: Node): ContainerFlags {
@@ -230,7 +230,7 @@ function bindChildren(node: Node) {
 
 ## 绑定器符号表
 
-符号表（SymbolTable）实现为一个简单的 HashMap，下面是其接口（`types.ts`）：
+符号表（SymbolTable）是以一个简单的 HashMap 实现的，下面是其接口（`types.ts`）：
 
 ```ts
 interface SymbolTable {

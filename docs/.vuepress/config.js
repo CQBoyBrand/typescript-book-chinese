@@ -118,7 +118,8 @@ module.exports = {
           '/tips/buildToggles',
           '/tips/typesafeEventEmitter',
           '/tips/metadata',
-          '/tips/covarianceAndContravariance'
+          '/tips/covarianceAndContravariance',
+          '/tips/infer'
         ]
       },
       {
@@ -143,7 +144,15 @@ module.exports = {
           './faqs/common-feature-request',
           './faqs/type-system-behavior',
           './faqs/function',
-          './faqs/class'
+          './faqs/class',
+          './faqs/generics',
+          './faqs/modules',
+          './faqs/enums',
+          './faqs/type-guards',
+          './faqs/jsx-and-react',
+          './faqs/thing-that-dont-work',
+          './faqs/commandline-behavior',
+          './faqs/tsconfig-behavior'
         ]
       }
     ]

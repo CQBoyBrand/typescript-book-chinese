@@ -31,7 +31,7 @@ const bar = foo.toString(); // Error: 属性 toString 不存在类型 number 上
 
 `lib.d.ts` 的内容主要是一些变量声明（如：`window`、`document`、`math`）和一些类似的接口声明（如：`Window`、`Document`、`Math`）。
 
-最简单的方式寻找代码的类型（如：`Math.floor`）是使用 IDE 的 `F12`（跳转到定义）。
+寻找代码类型（如：`Math.floor`）的最简单方式是使用 IDE 的 `F12`（跳转到定义）。
 
 让我们来看一个示例变量的声明，如 `window` 被定义为：
 
@@ -42,7 +42,15 @@ declare var window: Window;
 这只是一个简单的 `declare var`，后面跟一个变量名称（`window`）和一个用来类型注解的接口（`Window` 接口），这些变量通常指向一些全局的接口，例如，以下是 `Window` 接口的一小部分：
 
 ```ts
-interface Window extends EventTarget, WindowTimers, WindowSessionStorage, WindowLocalStorage, WindowConsole, GlobalEventHandlers, IDBEnvironment, WindowBase64 {
+interface Window
+  extends EventTarget,
+    WindowTimers,
+    WindowSessionStorage,
+    WindowLocalStorage,
+    WindowConsole,
+    GlobalEventHandlers,
+    IDBEnvironment,
+    WindowBase64 {
   animationStartTime: number;
   applicationCache: ApplicationCache;
   clientInformation: Navigator;
@@ -141,7 +149,7 @@ interface DateConstructor {
 }
 ```
 
-在 [dayjs](https://github.com/abritinthebay/datejs) 里，它在 `Date` 的全局变量以及 `Date` 实例上同时添加了成员，因此这个库的 TypeScript 定义看起来像如下所示（社区已经[定义](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/datejs/index.d.ts)好了）：
+在 [datejs](https://github.com/abritinthebay/datejs) 里，它在 `Date` 的全局变量以及 `Date` 实例上同时添加了成员，因此这个库的 TypeScript 定义看起来像如下所示（社区已经[定义](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/datejs/index.d.ts)好了）：
 
 ```ts
 // DateJS 公开的静态方法

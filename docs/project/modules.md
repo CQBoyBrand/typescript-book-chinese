@@ -57,7 +57,8 @@ const bar = foo; // allow
 
 怎么书写 TypeScript 模块，这也是一件让人困惑的事。在今天我们应该这么做：
 
-- `import foo = require('foo')` 例如： `import/require` 使用 ES 模块语法。
+- 放弃使用`import/require`语法即`import foo = require('foo')`写法
+- 推荐使用 ES 模块语法
 
 这很酷，接下来，让我们看看 ES 模块语法。
 
@@ -315,7 +316,7 @@ import foo = require('foo');
 let bar: foo.SomeType;
 ```
 
-然而，在某些情景下，你只想在需要时加载模块 `foo`，此时你需要仅在类型注解中使用导入的模块名称，而**不**是在变量中使用。在编译成 JavaScript 式，这些将会被移除。接着，你可以手动导入你需要的模块。
+然而，在某些情景下，你只想在需要时加载模块 `foo`，此时你需要仅在类型注解中使用导入的模块名称，而**不**是在变量中使用。在编译成 JavaScript 时，这些将会被移除。接着，你可以手动导入你需要的模块。
 
 做为一个例子，考虑以下基于 `commonjs` 的代码，我们仅在一个函数内导入 `foo` 模块：
 
@@ -349,7 +350,7 @@ export function loadFoo() {
 
 #### 使用例子：打破循环依赖
 
-类似于懒加载的使用用例，某些模块加载器（commonjs/node 和 amd/requirejs）不能很好的处理循环依赖。在这种情况下，一方面我们使用延迟加载代码，并在另一方面预先加载模块时很实用的。
+类似于懒加载的使用用例，某些模块加载器（commonjs/node 和 amd/requirejs）不能很好的处理循环依赖。在这种情况下，一方面我们使用延迟加载代码，并在另一方面预先加载模块是很实用的。
 
 #### 使用例子：确保导入
 
@@ -374,4 +375,4 @@ const ensureImport: any = foo || bar || bas;
 :::
 
 - `globals.d.ts` 是一种扩充 `lib.d.ts` 很好的方式，如果你需要。
-- 当你从 `TS` 迁移到 `JS` 时，定义 `declare module "some-library-you-dont-care-to-get-defs-for"` 能让你快速开始。
+- 当你从 `JS` 迁移到 `TS` 时，定义 `declare module "some-library-you-dont-care-to-get-defs-for"` 能让你快速开始。
